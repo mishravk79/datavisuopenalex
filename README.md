@@ -1,4 +1,4 @@
-# Online Real-time research data visualization dashboard using open-source software and OpenAlex database
+# Online Real-time research data visualization dashboard using open-source software and OpenAlex database (Datavisuopenalex)
 
 **Implementation Manual for Linux (Ubuntu)**
 
@@ -191,7 +191,7 @@ https://api.openalex.org/works?group_by=publication_year&per_page=200&filter=aut
 Most of the data, including text, are fetched from OpenAlex, but if desired, the same can be modified through corresponding Python files HTML or within Python files.
 
 **Home page image**
-![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/dashboard.png)
+![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/dashboard-home.png)
 
 
 
