@@ -1,5 +1,4 @@
-# datavisuopenalex
-#Online Real-time research data visualization dashboard using open-source software and OpenAlex database
+# Online Real-time research data visualization dashboard using open-source software and OpenAlex database
 
 **Implementation Manual for Linux (Ubuntu)**
 
