@@ -1,0 +1,183 @@
+/* dashboard.css */
+
+/* Add your CSS styles here */
+
+body {
+    background-color: #cf471b;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #000000;
+    padding: 10px 0;
+    text-align: center;
+    height: auto;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Allow content to wrap within header */
+}
+
+.header * {
+    font-weight: bold; /* Make the font bold for all elements within the .header */
+}
+
+.text-container {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.logo {
+    margin-right: -70px;
+    width: 120px;
+    height: auto;
+}
+
+.chart-container {
+    padding-top: 10px; /* Adjusted padding-top for chart container */
+}
+
+.col-lg-4 {
+    padding: 5px;
+}
+
+.chart {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+    overflow: auto;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.chart:hover {
+    transform: scale(1.2);
+    z-index: 1000;
+}
+
+.chart h3 {
+    color: #ffffff;
+    margin-top: 0;
+}
+
+.chart::-webkit-scrollbar {
+    width: 12px;
+}
+
+.chart::-webkit-scrollbar-thumb {
+    background-color: #6b6b6b;
+    border-radius: 10px;
+}
+
+.chart text {
+    fill: black !important;
+    font-weight: normal;
+}
+
+.credit {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #000000;
+    padding: 10px 0;
+    text-align: center;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.credit-text {
+    color: white;
+    font-size: 12px;
+    flex-grow: 1;
+}
+
+.nav-menu {
+    width: 100%;
+    background-color:  #c90523; /* Set the background color to green */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align menu items to the left */
+    padding: 10px 0; /* Adjusted padding for better spacing */
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding-left: 20px; /* Remove default left padding */
+}
+
+.nav-menu-item {
+    position: relative;
+    margin-right: 20px; /* Adjust spacing between menu items */
+}
+
+.nav-menu-item a {
+    color: white; /* Change the color of the menu text */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make the text bold */
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #c90523;
+    padding: 10px 0; /* Adjust padding for better spacing */
+    list-style: none; /* Remove default list styling */
+    margin: 0; /* Remove default margin */
+    padding-left: 0; /* Remove default left padding */
+    width: auto; /* Allow the sub-menu width to expand dynamically */
+}
+
+.sub-menu li {
+    width: auto; /* Allow link text to expand */
+    text-align: left; /* Align text to the left */
+}
+
+.sub-menu li a {
+    display: block; /* Make the link text fill the entire width of the list item */
+    padding: 5px 20px; /* Adjust padding for better spacing */
+    color: #ffffff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.sub-menu li a:hover {
+    background-color: #96031A; /* Change background color on hover */
+}
+
+.nav-menu-item:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu-item {
+    margin: 0; /* Remove default margin */
+    padding: 5px 20px; /* Adjust padding for better spacing */
+}
+
+/* Additional custom CSS for responsiveness */
+@media (max-width: 768px) {
+    /* Adjustments for smaller screens */
+    .header .logo {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .header .text-container {
+        text-align: center;
+    }
+    .header .nav-menu {
+        justify-content: center;
+    }
+    .header .nav-menu-item {
+        margin-right: 10px;
+    }
+    .chart {
+        padding: 15px;
+    }
+}

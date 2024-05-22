@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIT Rourkela Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='dashboard.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/e/e2/NIT_Rourkela_Colour_Logo.svg" alt="NIT Rourkela Logo">
+        <div class="text-container">
+            <div>
+                <h4>{{ display_name }}</h4>
+                <h5>{{NA}}</h5>
+                <h6>Odisha, {{country}}</h6>
+                <h6>Real-Time Research Data Visualisation Dashboard</h6>
+                <h6><a href="https://openalex.org/" target="_blank">(Data Source: OpenAlex)</a></h6>
+                <h6>Total Publications:{{ works_count }},Total Citations:{{ cited_by_count }},H-Index:{{ h_index }}</h6>
+            </div>
+        </div>
+        <!-- Navigation menu -->
+        <ul class="nav-menu">
+            <li class="nav-menu-item">
+                <a href="#">Home</a>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item"><a href="https://library.nitrkl.ac.in/" target="_blank">Library Home</a></li>
+                    <li class="sub-menu-item"><a href="https://opac.nitrkl.ac.in/" target="_blank">Library OPAC</a></li>
+                </ul>
+            </li>
+            <li class="nav-menu-item">
+                <a href="#">Publication Charts</a>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item"><a href="/openaccesspublication.py" target="_blank">Open Access Publication</a></li>
+                    <li class="sub-menu-item"><a href="/publicationperyear.py" target="_blank">Publications Per Year</a></li>
+                    <li class="sub-menu-item"><a href="/toptencontributors.py" target="_blank">Top Ten Contributors</a></li>
+                    <li class="sub-menu-item"><a href="/publicationbysourcetype.py" target="_blank">Publication by Source Types</a></li>
+                    <li class="sub-menu-item"><a href="/publicationbytype.py" target="_blank">Publication by Types</a></li>
+                </ul>
+            </li>
+            <li class="nav-menu-item">
+                <a href="#">Citation Charts</a>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item"><a href="/citationsperyear.py" target="_blank">Citations Per Year</a></li>
+                    <li class="sub-menu-item"><a href="/toptencitedpublications.py" target="_blank">Top Ten Cited Publications</a></li>
+                </ul>
+            </li>
+            <li class="nav-menu-item">
+                <a href="#">Subject Charts</a>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item"><a href="/primarytopicsdistribution.py" target="_blank">Primary Topics Distribution</a></li>
+                    <li class="sub-menu-item"><a href="/publicationbykeywords.py" target="_blank">Publication by Keywords</a></li>
+                </ul>
+            </li>
+            <li class="nav-menu-item">
+                <a href="#">Collaboration Charts</a>
+                <ul class="sub-menu">
+                    <li class="sub-menu-item"><a href="/colaborationwithcountries.py" target="_blank">Colaboration with Countries</a></li>
+                    <li class="sub-menu-item"><a href="/toptenfundingagency.py" target="_blank">Top Funding Agency</a></li>
+                    <li class="sub-menu-item"><a href="/toptencollaboratorinstitutes.py" target="_blank">Top Ten Collaborator Institutes</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Insert the chart HTML here -->
+
+    <!-- First row -->
+                 
+    <div class="container-fluid chart-container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Publications Per Year</h5></center>
+                    {{ plot_yearly_data | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Top Ten Funding Agency</h5></center>
+                    {{ plot_funding_agency | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Top Ten Contributors</h5></center>
+                    {{ plot_top_author | safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional second row -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Primary Topics Distribution</h5></center>
+                    {{ plot_primary_topic | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Top Ten Cited Publications</h5></center>
+                    {{ plot_top_citation | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Open Access Publication</h5></center>
+                    {{ plot_open_access | safe }}
+                </div>
+            </div>
+        </div>
+
+    <!-- Additional third row-->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Citations Per Year</h5></center>
+                {{ plot_yearly_citation | safe }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Colaboration with Countries</h5></center>
+                {{ plot_geo_map | safe }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Top Ten Collaborator Institutes</h5></center>
+                {{ plot_heatmap | safe }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional fourth row-->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Publication by Source Types</h5></center>
+                {{ plot_source_type | safe }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Publication by Keywords</h5></center>
+                {{ plot_keywords | safe }}
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="chart">
+                <center><h5>Publication by Types</h5></center>
+                {{ plot_type | safe }}
+            </div>
+        </div>
+    </div>
+
+
+<!-- Credit area -->
+
+<div class="credit">
+    <div class="credit-text">
+        Designed by Vinod Kumar Mishra; Powered by Plotly and Bootstrap
+    </div>
+</div>
+
+   
+    <!-- Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Adjust margin top of .chart-container based on header height
+        $(document).ready(function() {
+            $('.chart-container').css('margin-top', $('.header').outerHeight() + 'px');
+        });
+        $(window).resize(function() {
+            $('.chart-container').css('margin-top', $('.header').outerHeight() + 'px');
+        });
+    </script>
+</body>
+</html>
