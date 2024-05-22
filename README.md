@@ -19,7 +19,7 @@ sudo apt update
 sudo apt upgrade
 ```
 
-2.	Install the software.
+2.	Install the software (Not require if you have already Apache installed and running some application on it).
 ```
 sudo apt install apache2
 ```
