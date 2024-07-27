@@ -18,9 +18,9 @@
                 <h4>{{ display_name }}</h4>
                 <h5>{{NA}}</h5>
                 <h6>Odisha, {{country}}</h6>
-                <h6>Real-Time Research Data Visualization Dashboard</h6>
+                <h6>Real-Time Research Data Visualization Dashboard (RTRDVD)</h6>
                 <h6><a href="https://openalex.org/" target="_blank">(Data Source: OpenAlex)</a></h6>
-                <h6>Total Publications:{{ works_count }},Total Citations:{{ cited_by_count }},H-Index:{{ h_index }}</h6>
+                <h6>Total Publications:{{ works_count }}, Total Citations:{{ cited_by_count }}, H-Index:{{ h_index }}</h6>
             </div>
         </div>
         <!-- Navigation menu -->
@@ -81,7 +81,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="chart">
-                    <center><h5>Top Ten Funding Agency</h5></center>
+                    <center><h5>Top Funding Agency</h5></center>
                     {{ plot_funding_agency | safe }}
                 </div>
             </div>
