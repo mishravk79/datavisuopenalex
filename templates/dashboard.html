@@ -12,15 +12,15 @@
 </head>
 <body>
     <div class="header">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/en/e/e2/NIT_Rourkela_Colour_Logo.svg" alt="Institute Logo">
+        <img class="logo" src="/static/logo.png" alt="Institute Logo">
         <div class="text-container">
             <div>
                 <h4>{{ display_name }}</h4>
-                <h5>{{NA}}</h5>
-                <h6>Odisha, {{country}}</h6>
+                <h5>{{ NA }}</h5>
+                <h6>Odisha, {{ country }}</h6>
                 <h6>Real-Time Research Data Visualization Dashboard (RTRDVD)</h6>
                 <h6><a href="https://openalex.org/" target="_blank">(Data Source: OpenAlex)</a></h6>
-                <h6>Total Publications:{{ works_count }}, Total Citations:{{ cited_by_count }}, H-Index:{{ h_index }}</h6>
+                <h6>Total Publications: {{ works_count }}, Total Citations: {{ cited_by_count }}, H-Index: {{ h_index }}</h6>
             </div>
         </div>
         <!-- Navigation menu -->
@@ -59,18 +59,22 @@
             <li class="nav-menu-item">
                 <a href="#">Collaboration Charts</a>
                 <ul class="sub-menu">
-                    <li class="sub-menu-item"><a href="/colaborationwithcountries.py" target="_blank">Colaboration with Countries</a></li>
+                    <li class="sub-menu-item"><a href="/colaborationwithcountries.py" target="_blank">Collaboration with Countries</a></li>
                     <li class="sub-menu-item"><a href="/toptenfundingagency.py" target="_blank">Top Funding Agency</a></li>
                     <li class="sub-menu-item"><a href="/toptencollaboratorinstitutes.py" target="_blank">Top Ten Collaborator Institutes</a></li>
                 </ul>
             </li>
+           <li class="nav-menu-item">
+        <a href="#">Local Data Charts</a>
+        <ul class="sub-menu">
+            <li class="sub-menu-item"><a href="/exceldepartmentproject.py" target="_blank">Projects and Costs by Department</a></li>
+            <li class="sub-menu-item"><a href="/excelprojectsponsor.py" target="_blank">Project and Cost by Sponsoring Agency</a></li>
         </ul>
-    </div>
-
-    <!-- Insert the chart HTML here -->
+    </li>
+ </ul>
+</div>
 
     <!-- First row -->
-                 
     <div class="container-fluid chart-container">
         <div class="row">
             <div class="col-lg-4">
@@ -79,10 +83,21 @@
                     {{ plot_yearly_data | safe }}
                 </div>
             </div>
-            <div class="col-lg-4">
+                <div class="col-lg-4">
                 <div class="chart">
-                    <center><h5>Top Funding Agency</h5></center>
-                    {{ plot_funding_agency | safe }}
+                    <h5>Recent Ten Publications</h5>
+                    <div class="scrolling-list">
+                        <ul class="list-group">
+                            {% for publication in publications %}
+                                <li class="list-group-item">
+                                    <strong>{{ publication.title }}</strong><br>
+                                    <em>Published in {{ publication['publication_year'] }}</em><br>
+                            <span>Authors: {{ publication['authors'] }}</span><br>
+                                    <a href="{{ publication['doi'] }}" target="_blank">View Publication</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -115,60 +130,79 @@
             </div>
         </div>
 
-    <!-- Additional third row-->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Citations Per Year</h5></center>
-                {{ plot_yearly_citation | safe }}
+        <!-- Additional third row -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Citations Per Year</h5></center>
+                    {{ plot_yearly_citation | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Collaboration with Countries</h5></center>
+                    {{ plot_geo_map | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Top Ten Collaborator Institutes</h5></center>
+                    {{ plot_heatmap | safe }}
+                </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Colaboration with Countries</h5></center>
-                {{ plot_geo_map | safe }}
+
+        <!-- Additional fourth row -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Publication by Source Types</h5></center>
+                    {{ plot_source_type | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Publication by Keywords</h5></center>
+                    {{ plot_keywords | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Publication by Types</h5></center>
+                    {{ plot_type | safe }}
+                </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Top Ten Collaborator Institutes</h5></center>
-                {{ plot_heatmap | safe }}
+
+        <!-- Additional fifth row -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Top Funding Agency</h5></center>
+                    {{ plot_funding_agency | safe }}
+                </div>
             </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Local Excel Sample Data</h5></center>
+                    {{ plot_sponsoring_agencies | safe }}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart">
+                    <center><h5>Local Excel Sample Data</h5></center>
+                    {{ plot_department | safe }}
+                </div>
+            </div>
+        </div>
+
+    <!-- Credit area -->
+    <div class="credit">
+        <div class="credit-text">
+            Customized by Central Library; <a href="https://github.com/mishravk79" target="_blank">Powered by Datavisuopenalex</a>
         </div>
     </div>
 
-    <!-- Additional fourth row-->
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Publication by Source Types</h5></center>
-                {{ plot_source_type | safe }}
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Publication by Keywords</h5></center>
-                {{ plot_keywords | safe }}
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="chart">
-                <center><h5>Publication by Types</h5></center>
-                {{ plot_type | safe }}
-            </div>
-        </div>
-    </div>
-
-
-<!-- Credit area -->
-
-<div class="credit">
-    <div class="credit-text">
-        Customized by Central Library; <a href="https://github.com/mishravk79" target="_blank">Powered by Datavisuopenalex</a>
-    </div>
-</div>
-
-   
     <!-- Bootstrap JS and jQuery (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
