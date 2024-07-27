@@ -195,7 +195,7 @@ def index():
     ))
     
     # Update layout for the treemap chart
-    fig_funding_agency.update_layout(title='Funding Agency Distribution', paper_bgcolor='#000000')
+    fig_funding_agency.update_layout(title='Top Funding Agency Distribution', paper_bgcolor='#000000')
     
     # Increase only the plot area of charts
     fig_funding_agency.update_layout(
@@ -330,7 +330,7 @@ def index():
                 colorscale='Rainbow'))
 
             fig_heatmap.update_layout(
-                title='Top 10 Collaborator Institutes',
+                title='Top Ten Collaborator Institutes',
                 xaxis_title='',
                 yaxis_title='',
                 #yaxis=dict(title=f"{your_institute_name} ({your_institute_count})", showticklabels=False),
