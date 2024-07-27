@@ -101,7 +101,7 @@ pip install openpyxl
 
 OR 
 
-You can install all above with the folowing command
+You can install all above with the following command
 
 ```
 pip install -r requirements.txt
