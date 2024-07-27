@@ -1,4 +1,5 @@
-# Online Real-time research data visualization dashboard using open-source software and OpenAlex database (Datavisuopenalex)
+**Online Real-Time Research Data Visualization Dashboard**
+
 
 **Implementation Manual for Linux (Ubuntu)**
 
@@ -19,7 +20,7 @@ sudo apt update
 sudo apt upgrade
 ```
 
-2.	Install the software (Not require if you have already Apache installed and running some application on it).
+2.	Install the software.
 ```
 sudo apt install apache2
 ```
@@ -94,6 +95,18 @@ pip install flask
 ```
 pip install requests
 ```
+```
+pip install openpyxl
+```
+
+OR 
+
+You can install all above with the folowing command
+
+```
+pip install -r requirements.txt
+```
+
 
 8.	Deactivate the Virtual Environment: Once you're done working on your project, you can deactivate the virtual environment with the command:
 
@@ -190,8 +203,12 @@ https://api.openalex.org/works?group_by=publication_year&per_page=200&filter=aut
 
 Most of the data, including text, are fetched from OpenAlex, but if desired, the same can be modified through corresponding Python files HTML or within Python files.
 
+**Excel data and Logo**
+
+You may make your excel data and keep in "static" folder and replace the logo.png with your own logo. The file name of excel and sheet name in excel is important and to be kept according to your code in dashboard.py file.
+
 **Home page image**
-![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/dashboard-home.png)
+![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/dashboard.png)
 
 
 
