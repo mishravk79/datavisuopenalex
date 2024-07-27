@@ -3,7 +3,7 @@
 /* Add your CSS styles here */
 
 body {
-    background-color: #cf471b;
+    background-color: #d84f25;
     color: white;
     font-family: Arial, sans-serif;
 }
@@ -101,7 +101,7 @@ body {
 
 .nav-menu {
     width: 100%;
-    background-color:  #c90523; /* Set the background color to green */
+    background-color:  #c90523; /* Set the background color to red */
     display: flex;
     align-items: center;
     justify-content: flex-start; /* Align menu items to the left */
@@ -161,23 +161,46 @@ body {
     padding: 5px 20px; /* Adjust padding for better spacing */
 }
 
-/* Additional custom CSS for responsiveness */
-@media (max-width: 768px) {
-    /* Adjustments for smaller screens */
-    .header .logo {
-        margin-right: 0;
-        margin-bottom: 10px;
+/* Scrolling list styles */
+.scrolling-list {
+    position: relative;
+    height: 240px; /* Adjust as needed */
+    overflow: hidden; /* Hide overflow */
+    background-color: black;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.scrolling-list ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    animation: marquee 30s linear infinite; /* Adjust duration for speed */
+}
+
+.scrolling-list li {
+    padding: 10px;
+    border-bottom: 1px solid #555;
+    background-color: black;
+    color: white;
+    flex: none; /* Prevent items from shrinking or growing */
+    font-size: 12px;
+}
+
+.scrolling-list li:hover {
+    background-color: #666;
+}
+
+.scrolling-list:hover ul {
+    animation-play-state: paused; /* Pause scrolling on hover */
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateY(2%);
     }
-    .header .text-container {
-        text-align: center;
-    }
-    .header .nav-menu {
-        justify-content: center;
-    }
-    .header .nav-menu-item {
-        margin-right: 10px;
-    }
-    .chart {
-        padding: 15px;
+    100% {
+        transform: translateY(-100%);
     }
 }
