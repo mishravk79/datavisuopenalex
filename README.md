@@ -1,4 +1,4 @@
-**Online Real-Time Research Data Visualization Dashboard**
+**Real-Time Research Data Visualization Dashboard (RTRDVD)**
 
 
 **Implementation Manual for Linux (Ubuntu)**
