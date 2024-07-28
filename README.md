@@ -98,6 +98,9 @@ pip install requests
 ```
 pip install openpyxl
 ```
+```
+pip install pandas
+```
 
 OR 
 
