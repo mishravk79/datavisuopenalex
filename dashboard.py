@@ -1,10 +1,23 @@
 from flask import Flask, render_template
 import requests
+import pandas as pd
 import plotly.graph_objs as go
 from datetime import datetime
 from api_urls import *
 
 app = Flask(__name__)
+
+## Coding to fetch the latest ten publications
+def fetch_latest_publications():
+    try:
+        #api_url_latest_publication = "https://api.openalex.org/works?filter=institutions.id:i16292982&sort=publication_year:desc&per-page=10"
+        response = requests.get(api_url_latest_publication)
+        response.raise_for_status()  # Raise an exception for HTTP errors
+        data = response.json()
+        return data['results']
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching publications: {e}")
+        return []
 
 @app.route('/')
 def index():
@@ -375,18 +388,13 @@ def index():
                 ))
                 
                 fig.update_yaxes(
-                    tickvals=list(range(len(source_types))),
-                    ticktext=source_types,
+                    tickvals=list(range(len(source_types))), ticktext=source_types,
                     title_text='Source Types',
                     showticklabels=False  # Hide tick labels on the y-axis
                 )
 
-                fig.update_layout(
-                    title='Publication by Source Types',
-                    xaxis_title='Count',
-                    barmode='stack',
-                    paper_bgcolor='#FF0000',
-                    plot_bgcolor='#006600',
+                fig.update_layout(title='Publication by Source Types', xaxis_title='Count',
+                    barmode='stack', paper_bgcolor='#FF0000', plot_bgcolor='#006600',
                     margin=dict(l=5, r=5, t=40, b=5)
                 )
             
@@ -450,14 +458,94 @@ def index():
 
         # Convert the plot to HTML
         plot_html_type = fig.to_html(full_html=False, default_height=250)
+        
+## Coding to fetch the latest ten publications
+        publications = fetch_latest_publications()
+        for publication in publications:
+            publication['authors'] = ', '.join([author['author']['display_name'] for author in publication.get('authorships', [])])
 
+
+## Read the Excel file for sponsoring agency cost and number
+
+    excel_path = 'static/local_data.xlsx'
+    sheet_name = 'sponsoringagency'
+    
+    try:
+        df = pd.read_excel(excel_path, sheet_name=sheet_name)
+    except Exception as e:
+        print(f"Error reading Excel file: {e}")
+        df = pd.DataFrame()
+
+    # Process the DataFrame to create the bar chart
+    df = df.drop_duplicates()  # Remove duplicates if any
+    df_sorted = df.sort_values(by='Number of Projects', ascending=False)
+
+    sponsoring_agencies = df_sorted['Sponsoring Agency']
+    number_of_projects = df_sorted['Number of Projects']
+    total_project_cost = df_sorted['total Project Cost (In Lakh)']
+
+    # Create a bar chart using Plotly
+    fig_sponsoring_agencies = go.Figure()
+
+    fig_sponsoring_agencies.add_trace(go.Bar(y=sponsoring_agencies,x=number_of_projects, orientation='h',
+        name='No. of Projects', marker_color='blue'))
+
+    fig_sponsoring_agencies.add_trace(go.Bar(y=sponsoring_agencies,x=total_project_cost, orientation='h',
+        name='Cost (In Lakh)',marker_color='red'))
+
+    fig_sponsoring_agencies.update_layout(title='Projects and Costs by Sponsoring Agency',
+        yaxis_title='Sponsoring Agency',xaxis_title='Count / Cost',barmode='group',paper_bgcolor='#94f97e')
+    
+    # Increase only the plot area of charts
+    fig_sponsoring_agencies.update_layout(
+        margin=dict(l=0, r=0, t=35, b=0), )
+
+    plot_html_sponsoring_agencies = fig_sponsoring_agencies.to_html(full_html=False, default_height=250)
+
+## Read the Excel file for department wise cost and number of project
+
+    excel_path = 'static/local_data.xlsx'
+    sheet_name = 'department'
+    
+    try:
+        df = pd.read_excel(excel_path, sheet_name=sheet_name)
+    except Exception as e:
+        print(f"Error reading Excel file: {e}")
+        df = pd.DataFrame()
+
+    # Process the DataFrame to create the bar chart
+    df = df.drop_duplicates()  # Remove duplicates if any
+    df_sorted = df.sort_values(by='Number of Projects', ascending=False)
+
+    department = df_sorted['Department']
+    number_of_projects = df_sorted['Number of Projects']
+    total_project_cost = df_sorted['Total Project Cost (In Lakh)']
+
+    # Create a bar chart using Plotly
+    fig_department = go.Figure()
+
+    fig_department.add_trace(go.Bar(y=department,x=number_of_projects, orientation='h',
+        name='No. of Projects', marker_color='blue'))
+
+    fig_department.add_trace(go.Bar(y=department,x=total_project_cost, orientation='h',
+        name='Cost (In Lakh)',marker_color='green'))
+
+    fig_department.update_layout(title='Projects and Costs by Department',
+        yaxis_title='Department',xaxis_title='Count / Cost',barmode='group',paper_bgcolor='#b7908f')
+    
+    # Increase only the plot area of charts
+    fig_department.update_layout(
+        margin=dict(l=0, r=0, t=35, b=0), )
+
+    plot_html_department = fig_department.to_html(full_html=False, default_height=250)
 
 # Render the template with the data for all above codings
     return render_template('dashboard.html', plot_geo_map=plot_html_geo_map, plot_yearly_data=plot_html_yearly_data, display_name=display_name, works_count=works_count,
     cited_by_count=cited_by_count, h_index=h_index,third_alternative=third_alternative,
     country=country, plot_open_access=plot_html_open_access, plot_top_author=plot_html_top_author,plot_top_citation=plot_html_top_citation, plot_primary_topic=plot_html_primary_topic, 
     plot_funding_agency=plot_html_funding_agency,plot_yearly_citation=plot_html_yearly_citation,plot_heatmap=plot_html_heatmap, plot_source_type=plot_html_source_type,
-    plot_keywords=plot_html_keywords, plot_type=plot_html_type)
+    plot_keywords=plot_html_keywords, plot_type=plot_html_type, publications=publications, plot_sponsoring_agencies=plot_html_sponsoring_agencies,
+    plot_department=plot_html_department)
 
 def application(environ, start_response):
     return app(environ, start_response)
