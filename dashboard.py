@@ -10,7 +10,7 @@ app = Flask(__name__)
 ## Coding to fetch the latest ten publications
 def fetch_latest_publications():
     try:
-        #api_url_latest_publication = "https://api.openalex.org/works?filter=institutions.id:i16292982&sort=publication_year:desc&per-page=10"
+        #api_url_latest_publication = "https://api.openalex.org/works?filter=institutions.id:i16292982&sort=publication_year:desc&per-page=20"
         response = requests.get(api_url_latest_publication)
         response.raise_for_status()  # Raise an exception for HTTP errors
         data = response.json()
@@ -459,7 +459,7 @@ def index():
         # Convert the plot to HTML
         plot_html_type = fig.to_html(full_html=False, default_height=250)
         
-## Coding to fetch the latest ten publications
+## Coding to fetch the latest twenty publications
         publications = fetch_latest_publications()
         for publication in publications:
             publication['authors'] = ', '.join([author['author']['display_name'] for author in publication.get('authorships', [])])
