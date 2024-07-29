@@ -185,7 +185,7 @@ body {
     background-color: black;
     color: white;
     flex: none; /* Prevent items from shrinking or growing */
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .scrolling-list li:hover {
