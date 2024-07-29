@@ -160,8 +160,8 @@ Add the following configuration to the above file:
         Require all granted
     </Directory>
    # Directory configuration for static files to execute on web like logo.jpg
-Alias /static/ /opt/openalex/static/
-<Directory /opt/openalex/static>
+Alias /static/ /opt/datavisuopenalex/static/
+<Directory /opt/datavisuopenalex/static>
     Require all granted
 </Directory>
 </VirtualHost>
