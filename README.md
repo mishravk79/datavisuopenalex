@@ -77,6 +77,7 @@ sudo apt install python3-venv
 python3 -m venv env
 ```
 This command will create a new directory named “env” in your current directory (/opt/datavisuopenalex/env), which will contain the virtual environment.
+
 6.	Activate the Virtual Environment: Once the virtual environment is created, you need to activate it. Activating the virtual environment ensures that any Python commands you run will use the Python interpreter and packages installed within the virtual environment:
 
 ```
@@ -158,6 +159,11 @@ Add the following configuration to the above file:
     <Directory /opt/datavisuopenalex>
         Require all granted
     </Directory>
+   # Directory configuration for static files to execute on web like logo.jpg
+Alias /static/ /opt/openalex/static/
+<Directory /opt/openalex/static>
+    Require all granted
+</Directory>
 </VirtualHost>
 
 ```
@@ -206,9 +212,9 @@ https://api.openalex.org/works?group_by=publication_year&per_page=200&filter=aut
 
 Most of the data, including text, are fetched from OpenAlex, but if desired, the same can be modified through corresponding Python files HTML or within Python files.
 
-**Excel data and Logo**
+**Logo and other files to execute/display on web**
 
-You may make your excel data and keep in "static" folder and replace the logo.png with your own logo. The file name of excel and sheet name in excel is important and to be kept according to your code in dashboard.py file.
+You may keep your files/images like logo.jpg in "static" folder and replace the logo.jpg with your own logo.
 
 **Home page image**
 ![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/dashboard.png)
