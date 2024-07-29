@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="header">
-        <img class="logo" src="/static/logo.png" alt="Institute Logo">
+        <img class="logo" src="/static/logo.jpg" alt="Institute Logo">
         <div class="text-container">
             <div>
                 <h4>{{ display_name }}</h4>
@@ -40,6 +40,8 @@
                     <li class="sub-menu-item"><a href="/toptencontributors.py" target="_blank">Top Ten Contributors</a></li>
                     <li class="sub-menu-item"><a href="/publicationbysourcetype.py" target="_blank">Publication by Source Types</a></li>
                     <li class="sub-menu-item"><a href="/publicationbytype.py" target="_blank">Publication by Types</a></li>
+                    <li class="sub-menu-item"><a href="/publisherwisechart.py" target="_blank">Publication Counts by Top 20 Publisher</a></li>
+
                 </ul>
             </li>
             <li class="nav-menu-item">
@@ -62,16 +64,10 @@
                     <li class="sub-menu-item"><a href="/colaborationwithcountries.py" target="_blank">Collaboration with Countries</a></li>
                     <li class="sub-menu-item"><a href="/toptenfundingagency.py" target="_blank">Top Funding Agency</a></li>
                     <li class="sub-menu-item"><a href="/toptencollaboratorinstitutes.py" target="_blank">Top Ten Collaborator Institutes</a></li>
+                    <li class="sub-menu-item"><a href="/continentwisepublication.py" target="_blank">Collaboration by Continents</a></li>
                 </ul>
             </li>
-           <li class="nav-menu-item">
-        <a href="#">Local Data Charts</a>
-        <ul class="sub-menu">
-            <li class="sub-menu-item"><a href="/exceldepartmentproject.py" target="_blank">Projects and Costs by Department</a></li>
-            <li class="sub-menu-item"><a href="/excelprojectsponsor.py" target="_blank">Project and Cost by Sponsoring Agency</a></li>
-        </ul>
-    </li>
- </ul>
+       </ul>
 </div>
 
     <!-- First row -->
@@ -85,7 +81,7 @@
             </div>
                 <div class="col-lg-4">
                 <div class="chart">
-                    <h5>Recent Ten Publications</h5>
+                    <center><h5><a href="/latestpublication.py" target="_blank">Recent Ten Publications</a></h5></center>
                     <div class="scrolling-list">
                         <ul class="list-group">
                             {% for publication in publications %}
@@ -184,14 +180,14 @@
             </div>
             <div class="col-lg-4">
                 <div class="chart">
-                    <center><h5>Local Excel Sample Data</h5></center>
-                    {{ plot_sponsoring_agencies | safe }}
+                    <center><h5>Collaboration by Continents</h5></center>
+                    {{ plot_continent_chart | safe }}
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="chart">
-                    <center><h5>Local Excel Sample Data</h5></center>
-                    {{ plot_department | safe }}
+                    <center><h5>Publication Counts by Top 20 Publisher</h5></center>
+                    {{ plot_publisher_chart | safe }}
                 </div>
             </div>
         </div>
