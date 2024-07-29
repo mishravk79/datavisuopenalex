@@ -463,89 +463,78 @@ def index():
         publications = fetch_latest_publications()
         for publication in publications:
             publication['authors'] = ', '.join([author['author']['display_name'] for author in publication.get('authorships', [])])
+            
+## Continent wise publications/collaborations
 
+# Define the API URL for the pie chart
+    #api_url_continent_chart = "https://api.openalex.org/works?group_by=authorships.institutions.continent&per_page=200&filter=authorships.institutions.lineage:i16292982"
 
-## Read the Excel file for sponsoring agency cost and number
+    # Fetch data from the API for the pie chart
+    response_pie_chart = requests.get(api_url_continent_chart)
+    data_pie_chart = response_pie_chart.json()
 
-    excel_path = 'static/local_data.xlsx'
-    sheet_name = 'sponsoringagency'
-    
-    try:
-        df = pd.read_excel(excel_path, sheet_name=sheet_name)
-    except Exception as e:
-        print(f"Error reading Excel file: {e}")
-        df = pd.DataFrame()
+    # Extract data for the pie chart
+    continents = [entry['key_display_name'] for entry in data_pie_chart['group_by']]
+    counts = [entry['count'] for entry in data_pie_chart['group_by']]
 
-    # Process the DataFrame to create the bar chart
-    df = df.drop_duplicates()  # Remove duplicates if any
-    df_sorted = df.sort_values(by='Number of Projects', ascending=False)
+    # Create a pie chart
+    fig_continent_chart = go.Figure(data=go.Pie(
+        labels=continents,  # Continent names
+        values=counts,  # Data to be displayed in the pie chart
+        marker=dict(colors=['#ff007f', '#1f77b4', '#2ca02c', '#ff7f0e', '#9467bd', '#d62728', '#17becf', '#bcbd22', '#e377c2', '#8c564b'])
+    ))
 
-    sponsoring_agencies = df_sorted['Sponsoring Agency']
-    number_of_projects = df_sorted['Number of Projects']
-    total_project_cost = df_sorted['total Project Cost (In Lakh)']
+    # Update layout for the pie chart
+    fig_continent_chart.update_layout( paper_bgcolor='#CD7F32', margin=dict(l=0, r=0, t=0, b=0)
+    )
 
-    # Create a bar chart using Plotly
-    fig_sponsoring_agencies = go.Figure()
+    # Convert the plot to HTML
+    plot_html_continent_chart = fig_continent_chart.to_html(full_html=False, default_height=250)
 
-    fig_sponsoring_agencies.add_trace(go.Bar(y=sponsoring_agencies,x=number_of_projects, orientation='h',
-        name='No. of Projects', marker_color='blue'))
+## Publisher wise publications data 
 
-    fig_sponsoring_agencies.add_trace(go.Bar(y=sponsoring_agencies,x=total_project_cost, orientation='h',
-        name='Cost (In Lakh)',marker_color='red'))
+# Define the API URL for the data
+    #api_url_publisher_chart = "https://api.openalex.org/works?group_by=primary_location.source.publisher_lineage&per_page=20&filter=authorships.institutions.lineage:i16292982"
 
-    fig_sponsoring_agencies.update_layout(title='Projects and Costs by Sponsoring Agency',
-        yaxis_title='Sponsoring Agency',xaxis_title='Count / Cost',barmode='group',paper_bgcolor='#94f97e')
-    
-    # Increase only the plot area of charts
-    fig_sponsoring_agencies.update_layout(
-        margin=dict(l=0, r=0, t=35, b=0), )
+    # Fetch data from the API
+    response = requests.get(api_url_publisher_chart)
+    data = response.json()
 
-    plot_html_sponsoring_agencies = fig_sponsoring_agencies.to_html(full_html=False, default_height=250)
+    # Extract data for the bar chart
+    publishers = [entry['key_display_name'] for entry in data['group_by']]
+    counts = [entry['count'] for entry in data['group_by']]
 
-## Read the Excel file for department wise cost and number of project
+    # Define a bright color palette for the bar chart
+    colors = ['#ff007f', '#1f77b4', '#2ca02c', '#ff7f0e', '#9467bd']
 
-    excel_path = 'static/local_data.xlsx'
-    sheet_name = 'department'
-    
-    try:
-        df = pd.read_excel(excel_path, sheet_name=sheet_name)
-    except Exception as e:
-        print(f"Error reading Excel file: {e}")
-        df = pd.DataFrame()
+    # Create a bar chart
+    fig_publisher_chart = go.Figure(data=go.Bar(
+        x=publishers,  # Publisher names
+        y=counts,      # Counts
+        marker=dict(color=colors),  # Bright colors
+    ))
 
-    # Process the DataFrame to create the bar chart
-    df = df.drop_duplicates()  # Remove duplicates if any
-    df_sorted = df.sort_values(by='Number of Projects', ascending=False)
+    # Update layout for the bar chart
+    fig_publisher_chart.update_layout(
+        title='Publication Counts by Top 20 Publisher',
+        xaxis_title='Publisher',
+        yaxis_title='Publication Count',
+        xaxis_tickangle=-45,  # Rotate x-axis labels for better readability
+        paper_bgcolor='#DAF7A6',
+        margin=dict(l=0, r=0, t=30, b=0)
+  
+    )
 
-    department = df_sorted['Department']
-    number_of_projects = df_sorted['Number of Projects']
-    total_project_cost = df_sorted['Total Project Cost (In Lakh)']
+    # Convert the plot to HTML
+    plot_html_publisher_chart = fig_publisher_chart.to_html(full_html=False, default_height=250)
 
-    # Create a bar chart using Plotly
-    fig_department = go.Figure()
-
-    fig_department.add_trace(go.Bar(y=department,x=number_of_projects, orientation='h',
-        name='No. of Projects', marker_color='blue'))
-
-    fig_department.add_trace(go.Bar(y=department,x=total_project_cost, orientation='h',
-        name='Cost (In Lakh)',marker_color='green'))
-
-    fig_department.update_layout(title='Projects and Costs by Department',
-        yaxis_title='Department',xaxis_title='Count / Cost',barmode='group',paper_bgcolor='#b7908f')
-    
-    # Increase only the plot area of charts
-    fig_department.update_layout(
-        margin=dict(l=0, r=0, t=35, b=0), )
-
-    plot_html_department = fig_department.to_html(full_html=False, default_height=250)
-
+     
 # Render the template with the data for all above codings
     return render_template('dashboard.html', plot_geo_map=plot_html_geo_map, plot_yearly_data=plot_html_yearly_data, display_name=display_name, works_count=works_count,
     cited_by_count=cited_by_count, h_index=h_index,third_alternative=third_alternative,
     country=country, plot_open_access=plot_html_open_access, plot_top_author=plot_html_top_author,plot_top_citation=plot_html_top_citation, plot_primary_topic=plot_html_primary_topic, 
     plot_funding_agency=plot_html_funding_agency,plot_yearly_citation=plot_html_yearly_citation,plot_heatmap=plot_html_heatmap, plot_source_type=plot_html_source_type,
-    plot_keywords=plot_html_keywords, plot_type=plot_html_type, publications=publications, plot_sponsoring_agencies=plot_html_sponsoring_agencies,
-    plot_department=plot_html_department)
+    plot_keywords=plot_html_keywords, plot_type=plot_html_type, publications=publications, plot_continent_chart=plot_html_continent_chart, plot_publisher_chart=plot_html_publisher_chart)
 
 def application(environ, start_response):
     return app(environ, start_response)
