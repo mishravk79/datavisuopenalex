@@ -176,7 +176,7 @@ body {
     flex-direction: column;
     margin: 0;
     padding: 0;
-    animation: marquee 30s linear infinite; /* Adjust duration for speed */
+    animation: marquee 60s linear infinite; /* Adjust duration for speed */
 }
 
 .scrolling-list li {
