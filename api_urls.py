@@ -14,3 +14,5 @@ api_url_source_type = "https://api.openalex.org/works?group_by=primary_location.
 api_url_keywords = "https://api.openalex.org/works?group_by=keywords.id&per_page=200&filter=authorships.institutions.lineage:i16292982"
 api_url_type = "https://api.openalex.org/works?group_by=type&per_page=200&filter=authorships.institutions.lineage:i16292982"
 api_url_latest_publication = "https://api.openalex.org/works?filter=institutions.id:i16292982&sort=publication_year:desc&per-page=10"
+api_url_continent_chart = "https://api.openalex.org/works?group_by=authorships.institutions.continent&per_page=200&filter=authorships.institutions.lineage:i16292982"
+api_url_publisher_chart = "https://api.openalex.org/works?group_by=primary_location.source.publisher_lineage&per_page=20&filter=authorships.institutions.lineage:i16292982"
