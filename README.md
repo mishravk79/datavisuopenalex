@@ -1,4 +1,4 @@
-**Real-Time Research Data Visualization Dashboard (RTRDVD)**
+# Real-Time Research Data Visualization Dashboard (RTRDVD)
 
 
 **Implementation Manual for Linux (Ubuntu)**
@@ -200,11 +200,12 @@ For example, if you want to display the charts of IIT Bombay then you need to re
 
 Institution ID code in api_urls.py file
 
-# Define the common ID
+**Define the common ID**
 institution_id = "i16292982"
 
 Replace it with IIT Bombay code:
-# Define the common ID
+
+**Define the common ID**
 institution_id = "i162827531"
 
 After replacing automatically all charts data will be changed along with the text
