@@ -57,12 +57,8 @@ cp -r /home/koha/datavisuopenalex /opt
 3.	Navigate to Your Project Directory: First, navigate to the directory where you want to create the virtual environment. This should be the directory where your Python project files are located. (example: /opt/datavisuopenalex), to reach your project directory execute the following command:
 
 ```
-root@koha-OptiPlex-9010:/home/koha# cd /opt/datavisuopenalex/
+cd /opt/datavisuopenalex/
 ```
-```
-root@koha-OptiPlex-9010:/opt/datavisuopenalex#
-```
-
 4.	Install “virtualenv” (if not already installed): If “virtualenv” is not already installed on your system, you can install it using pip, Python's package manager:
 ```
 sudo apt update
