@@ -13,7 +13,7 @@ app = Flask(__name__)
 def index(height=None):
     ## Read the CSV file for department-wise cost and number of projects
 
-    csv_path = 'static/data/local_data.csv'  # Updated to use CSV file
+    csv_path = '/opt/datavisuopenalexcsv/static/data/csvdepartmentproject.csv'  # Updated to use CSV file
     
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
