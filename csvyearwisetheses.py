@@ -15,7 +15,7 @@ def index(height=None):
     # Colors for the charts
     colors = '#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a'
 
-    csv_path = 'static/data/yearwisetheses.csv'  # Updated to use new CSV file
+    csv_path = '/opt/datavisuopenalexcsv/static/data/yearwisetheses.csv'  # Updated to use new CSV file
     
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
