@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -11,9 +16,7 @@ def index():
 
 ## Coding starts here for top header effects
 
-    # Define the API URLs
-    #api_url_institute_profile = "https://api.openalex.org/institutions/I16292982"
-    
+       
     # Fetch data from the APIs
     response_institution = requests.get(api_url_institute_profile)
     

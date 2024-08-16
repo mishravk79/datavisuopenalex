@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -7,11 +12,8 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
 ## Coding for the publications by keywords (key word cloud)   
-
-# Define the API URL
-    #api_url_keywords = "https://api.openalex.org/works?group_by=keywords.id&per_page=200&filter=authorships.institutions.lineage:i16292982"
 
     # Fetch data from the API
     response = requests.get(api_url_keywords)
@@ -38,10 +40,12 @@ def index():
     )))
 
     fig.update_layout(title='Publication by Keywords',paper_bgcolor='#00ffff',
-                    margin=dict(l=5, r=5, t=50, b=5))
+                    margin=dict(l=5, r=5, t=50, b=5),
+                    height=height if height is not None else 600  # Use provided height or default to 400
+)
     
     # Convert the plot to HTML
-    plot_html_keywords = fig.to_html(full_html=False, default_height=700)
+    plot_html_keywords = fig.to_html(full_html=False)
 
     # Render the template with the plot HTML
     return render_template('publicationbykeywords.html', plot_keywords=plot_html_keywords)

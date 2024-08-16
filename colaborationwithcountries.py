@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -7,7 +12,7 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
     
 
 ## Coding starts here for colors to be applied in all charts
@@ -16,9 +21,6 @@ def index():
 
 
 ## Coding for the geomap chart to display country wide colaborations
-
-    # Define the API URL for the geomap chart
-    #api_url_geo_map = "https://api.openalex.org/works?group_by=authorships.countries&per_page=200&filter=authorships.countries:countries/in,authorships.institutions.lineage:i16292982"
 
     # Fetch data from the API for the geomap chart
     response_geo_map = requests.get(api_url_geo_map)
@@ -35,7 +37,7 @@ def index():
         locationmode='country names',  # Set location mode to country names
         colorscale='YlOrRd',  # Choose a colorscale
         colorbar_title='Count',  # Set colorbar title
-        
+
     ))
 
     # Update layout for the geomap chart
@@ -50,6 +52,8 @@ def index():
     # Increase only the plot area of charts
     fig_geo_map.update_layout(
         margin=dict(l=10, r=0, t=0, b=0,),  # map size
+        height=height if height is not None else 500  # Use provided height or default to 400
+
     )
     # Convert the plot to HTML
     plot_html_geo_map = fig_geo_map.to_html(full_html=False)

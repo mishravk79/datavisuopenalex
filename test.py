@@ -94,7 +94,7 @@ def index():
         publication['authors'] = ', '.join([author['author']['display_name'] for author in publication.get('authorships', [])])
 
    
-    return render_template('dashboard.html', yearly_citation=yearly_citation, geo_map=geo_map, open_access=open_access, 
+    return render_template('test.html', yearly_citation=yearly_citation, geo_map=geo_map, open_access=open_access, 
                            primary_topic=primary_topic, yearly_data=yearly_data, top_citation=top_citation, 
                            heatmap=heatmap, top_author=top_author, funding_agency=funding_agency, 
                            display_name=display_name, works_count=works_count, keywords=keywords, 

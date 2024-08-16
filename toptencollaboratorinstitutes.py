@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -7,7 +12,7 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
     
 
 ## Coding starts here for colors to be applied in all charts
@@ -17,8 +22,6 @@ def index():
 
 ## Coding for the top ten collaborator institutes
 
-     ## URL for fetching data
-    #api_url_ten_collaborator = "https://api.openalex.org/works?group_by=authorships.institutions.lineage&per_page=200&filter=authorships.institutions.lineage:i16292982"
 
     ## Fetch data from the API
     response = requests.get(api_url_ten_collaborator)
@@ -43,12 +46,15 @@ def index():
                 colorscale='Rainbow'))
 
             fig_heatmap.update_layout(
-                title='Top 10 Collaborator Institutes',
+                title='Top Ten Collaborator Institutes',
                 xaxis_title='',
                 yaxis_title='',
                 #yaxis=dict(title=f"{your_institute_name} ({your_institute_count})", showticklabels=False),
                 paper_bgcolor='#fbc039',
-                plot_bgcolor='#d3d3d3')
+                plot_bgcolor='#d3d3d3',
+                height=height if height is not None else 500  # Use provided height or default to 400
+
+                )
 
             plot_html_heatmap = fig_heatmap.to_html(full_html=False)
     

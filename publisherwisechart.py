@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -6,9 +11,7 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    # Define the API URL for the data
-    #api_url_publisher_chart = "https://api.openalex.org/works?group_by=primary_location.source.publisher_lineage&per_page=20&filter=authorships.institutions.lineage:i16292982"
+def index(height=None):
 
     # Fetch data from the API
     response = requests.get(api_url_publisher_chart)
@@ -34,7 +37,8 @@ def index():
         xaxis_title='Publisher',
         yaxis_title='Publication Count',
         xaxis_tickangle=-45,  # Rotate x-axis labels for better readability
-        paper_bgcolor='#DAF7A6'
+        paper_bgcolor='#DAF7A6',
+        height=height if height is not None else 500  # Use provided height or default to 400
     )
 
     # Convert the plot to HTML

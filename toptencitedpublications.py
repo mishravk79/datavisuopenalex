@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -7,7 +12,7 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
     
 
 ## Coding starts here for colors to be applied in all charts
@@ -17,8 +22,6 @@ def index():
 
 ## Coding starts here for top ten cited articles
 
-    # Define the API URLs
-    #api_url_top_citation = "https://api.openalex.org/works?page=1&filter=authorships.institutions.lineage:i16292982,cited_by_count:500-10000&per_page=10"
  
     # Fetch data from the APIs
     response_top_citation = requests.get(api_url_top_citation)
@@ -37,6 +40,8 @@ def index():
     # Increase only the plot area of charts
     fig_top_citation.update_layout(
         margin=dict(l=10, r=20, t=35, b=50),  # Top cited articles margins
+        height=height if height is not None else 500  # Use provided height or default to 400
+
     )
     
     # Convert the plots to HTML

@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -6,7 +11,7 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
 
     ## Coding starts here for colors to be applied in all charts
 
@@ -14,9 +19,7 @@ def index():
 
     ## Coding starts here for stacked bar chart
     
-    # Define the API URL
-    #api_url_source_type = "https://api.openalex.org/works?group_by=primary_location.source.type&per_page=200&filter=authorships.institutions.lineage:i16292982"
-    
+  
     # Fetch data from the API
     response = requests.get(api_url_source_type)
     if response.status_code == 200:
@@ -40,27 +43,21 @@ def index():
                     name=source_type,
                     text=[counts[i]],  # Labels with specific count for each source type
                     textposition='auto'  # Automatic placement of labels
+    
                 ))
 
-            fig.update_layout(
-                title='Publication by Source Types',
-                xaxis_title='Count',
-                yaxis_title='Source Types',
-                barmode='stack',
-                paper_bgcolor='#000000',
-                plot_bgcolor='#000000',
-                font=dict(
-                    family="Arial, sans-serif",
-                    size=14,
-                    color="white"
+                fig.update_yaxes(
+                    tickvals=list(range(len(source_types))), ticktext=source_types,
+                    title_text='Source Types',
+                    showticklabels=False  # Hide tick labels on the y-axis
                 )
-            )
 
-            # Increase only the plot area of charts
-            fig.update_layout(
-                margin=dict(l=0, r=0, t=40, b=40)
-            )
-
+                fig.update_layout(title='Publication by Source Types', xaxis_title='Count',
+                    barmode='stack', paper_bgcolor='#ff9900', plot_bgcolor='#006600',
+                    margin=dict(l=5, r=5, t=40, b=5),
+                    height=height if height is not None else 500  # Use provided height or default to 400
+                )
+                
             # Convert the Plotly figure to HTML
             plot_html_source_type = fig.to_html(full_html=False) 
 

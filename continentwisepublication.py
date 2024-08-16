@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Vinod Kumar Mishra
+# This file is part of Datavisuopenalex.
+# Datavisuopenalex is released under the MIT License.
+# See the License file for more details.
+
 from flask import Flask, render_template
 import requests
 import plotly.graph_objs as go
@@ -7,12 +12,9 @@ from api_urls import *
 app = Flask(__name__)
 
 @app.route('/')
-def index():
+def index(height=None):
     
     ## Continent wise publications/collaborations
-
-# Define the API URL for the pie chart
-    #api_url_continent_chart = "https://api.openalex.org/works?group_by=authorships.institutions.continent&per_page=200&filter=authorships.institutions.lineage:i16292982"
 
     # Fetch data from the API for the pie chart
     response_pie_chart = requests.get(api_url_continent_chart)
@@ -30,7 +32,9 @@ def index():
     ))
 
     # Update layout for the pie chart
-    fig_continent_chart.update_layout(title='Collaboration by Continents', paper_bgcolor='#CD7F32', margin=dict(l=0, r=0, t=0, b=0)
+    fig_continent_chart.update_layout(
+    paper_bgcolor='#CD7F32', margin=dict(l=0, r=0, t=0, b=0),
+    height=height if height is not None else 500  # Use provided height or default to 400
     )
 
     # Convert the plot to HTML
