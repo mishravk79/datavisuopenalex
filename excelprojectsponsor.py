@@ -18,7 +18,7 @@ def index(height=None):
     
     ## Read the Excel file from the static folder
 
-    excel_path = 'static/data/local_data.xlsx'
+    excel_path = '/opt/datavisuopenalexcsv/static/data/excelprojectsponsor.xlsx'
     sheet_name = 'sponsoringagency'
     
     try:
