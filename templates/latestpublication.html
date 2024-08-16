@@ -1,0 +1,78 @@
+<!-- Copyright (c) 2024 Vinod Kumar Mishra-->
+<!-- This file is part of Datavisuopenalex.-->
+<!-- Datavisuopenalex. is released under the MIT License.-->
+<!-- See the License file for more details.-->
+
+
+<!-- templates/latestpublications.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Latest Twenty Publications</title>
+    
+    <style>
+        .scroll-box {
+            width: 800px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+        .scroll-content {
+            position: absolute;
+            width: 100%;
+            animation: scroll-up 15s linear infinite;
+        }
+        @keyframes scroll-up {
+            0% {
+                top: 100%;
+            }
+            100% {
+                top: -100%;
+            }
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin: 20px 0; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <center><h5>Latest Twenty Publications</h5></center>
+        <div class="scroll-box" id="scroll-box">
+            <div class="scroll-content" id="scroll-content">
+                <ul>
+                    {% for publication in publications %}
+                        <li>
+                            <strong>{{ publication['title'] }}</strong><br>
+                            <em>Published in {{ publication['publication_year'] }}</em><br>
+                            <span>Authors: {{ publication['authors'] }}</span><br>
+                            <a href="{{ publication['doi'] }}" target="_blank">Read More</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scrollBox = document.getElementById('scroll-box');
+        const scrollContent = document.getElementById('scroll-content');
+        scrollBox.addEventListener('mouseover', function() {
+            scrollContent.style.animationPlayState = 'paused';
+        });
+
+        scrollBox.addEventListener('mouseout', function() {
+            scrollContent.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+</html>
