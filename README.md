@@ -194,23 +194,30 @@ By configuring Apache to serve your Python application using mod_wsgi, you can r
 
 **Customization of Charts with affiliation ID**
 
-If you are willing to use the same charts to visualize data on the dashboard, then little effort is needed as explained below. For visualizing another type of data and charts, separate coding is required, which may be done in line with existing codes. For every plotly chart there is one URL in the **api_urls.py** file; with careful examination, you will find a number in the URL, which is assigned by the OpenAlex database to search the documents with affiliation like other databases like Scopus/WoS. 
+If you are willing to use the same charts to visualize data on the dashboard, then little effort is needed as explained below. For visualizing another type of data and charts, separate coding is required, which may be done in line with existing codes. For every plotly chart there is one URL in the **api_urls.py** file; with careful examination, you will find a number in the URL, which is assigned by the OpenAlex database to search the documents with affiliation like other databases such as Scopus/WoS. 
 
-For example, if you want to display a chart of yearly publications:
+For example, if you want to display the charts of IIT Bombay then you need to replace the affiliation/Institute ID from the file api_urls.py code:
 
-The corresponding URL in file api_urls.py code is: 
+Institution ID code in api_urls.py file
 
-https://api.openalex.org/works?group_by=publication_year&per_page=200&filter=authorships.institutions.lineage:i16292982
+# Define the common ID
+institution_id = "i16292982"
 
-The number “i16292982” in this URL is for NIT Rourkela and if you want to change it for IIT Bombay “i162827531” then find it on OpenAlex database and replace the existing one with a new one as follows:
+Replace it with IIT Bombay code:
+# Define the common ID
+institution_id = "i162827531"
 
-https://api.openalex.org/works?group_by=publication_year&per_page=200&filter=authorships.institutions.lineage:i162827531
+After replacing automatically all charts data will be changed along with the text
 
 Most of the data, including text, are fetched from OpenAlex, but if desired, the same can be modified through corresponding Python files HTML or within Python files.
 
+**Customization of Charts with Spreadsheet**
+
+The sample file demonstrates how to extract data from CSV and Excel files. It allows you to generate statistical charts from any type of data that can be visualized. This approach is particularly useful for analyzing local data that might not be available elsewhere. For optimal results, using CSV files is recommended, with each chart having a corresponding CSV file named appropriately. Python code can be adapted from existing scripts with minor modifications to handle these CSV files effectively.
+
 **Logo and other files to execute/display on web**
 
-You may keep your files/images like logo.jpg in "static" folder and replace the logo.jpg with your own logo.
+You may keep your files/images like logo.jpg in "static" folder and replace the logo.png with your own logo.
 
 **Home page image**
 ![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/images/dashboard.png)
