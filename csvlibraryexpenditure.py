@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def index(height=None):
     
-    csv_path = 'static/data/csvlibraryexpenditure.csv'  # Updated to use the new CSV file
+    csv_path = '/opt/datavisuopenalexcsv/static/data/csvlibraryexpenditure.csv'  # Updated to use the new CSV file
 
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
