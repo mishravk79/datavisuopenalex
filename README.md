@@ -218,7 +218,7 @@ The sample file demonstrates how to extract data from CSV and Excel files. It al
 
 **Logo and other files to execute/display on web**
 
-You may keep your files/images like logo.jpg in "static" folder and replace the logo.png with your own logo.
+You may keep your files/images like logo.jpg in "static/images" folder and replace the logo.png with your own logo.
 
 **Home page image**
 ![](https://github.com/mishravk79/datavisuopenalex/blob/main/static/images/dashboard.png)
