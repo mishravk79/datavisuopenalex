@@ -88,7 +88,7 @@ def index():
 
 ## Read the CSV file for department-wise cost and number of projects
 
-    csv_path = '/opt/datavisuopenalexcsv/static/data/csvdepartmentproject.csv'  # Updated to use CSV file
+    csv_path = '/opt/datavisuopenalex/static/data/csvdepartmentproject.csv'  # Updated to use CSV file
     
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
@@ -125,7 +125,7 @@ def index():
 
     # Render the template with the data for all above codings
 
-    csv_path = '/opt/datavisuopenalexcsv/static/data/csvlibraryexpenditure.csv'  # Updated to use the new CSV file
+    csv_path = '/opt/datavisuopenalex/static/data/csvlibraryexpenditure.csv'  # Updated to use the new CSV file
 
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
@@ -180,7 +180,7 @@ def index():
    # Colors for the charts
     colors = '#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a'
 
-    csv_path = '/opt/datavisuopenalexcsv/static/data/yearwisetheses.csv'  # Updated to use new CSV file
+    csv_path = '/opt/datavisuopenalex/static/data/yearwisetheses.csv'  # Updated to use new CSV file
     
     try:
         df = pd.read_csv(csv_path)  # Read CSV file
@@ -227,7 +227,7 @@ def index():
 
 ## Read the Excel file from the static folder
 
-    excel_path = '/opt/datavisuopenalexcsv/static/data/excelprojectsponsor.xlsx'
+    excel_path = '/opt/datavisuopenalex/static/data/excelprojectsponsor.xlsx'
     sheet_name = 'sponsoringagency'
     
     try:
